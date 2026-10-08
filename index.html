@@ -10,1321 +10,170 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <style>
-    :root {
-      --velvet-maroon: #2d0206;
-      --royal-maroon: #4a040b;
-      --deep-maroon: #1f0104;
-      --bright-maroon: #7a0c17;
-      
-      /* Ultra-Rich Metallic Gold Palette */
-      --gold-primary: #d4af37;
-      --gold-light: #ffe8a3;
-      --gold-mid: #f3ce72;
-      --gold-dark: #a8761a;
-      --gold-shimmer: linear-gradient(135deg, #ffe5a3 0%, #d4af37 25%, #fff4d0 45%, #aa771c 70%, #e6c875 100%);
-      --gold-border: linear-gradient(135deg, #d4af37, #ffe5a3, #aa771c, #f3ce72);
-      
-      --ivory-silk: #fdfbf7;
-      --cream-warm: #f6ebd8;
-      --ink-dark: #221412;
-      --text-muted: #6b5249;
-      
-      --glow-gold: 0 0 25px rgba(212, 175, 55, 0.4);
-      --glow-maroon: 0 10px 40px rgba(74, 4, 11, 0.35);
-      --shadow-royal: 0 25px 80px rgba(15, 0, 3, 0.45);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      color: var(--ink-dark);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      background-color: var(--ivory-silk);
-      /* Royal Indian Paisley Damask Watermark Pattern */
-      background-image: 
-        radial-gradient(rgba(212, 175, 55, 0.12) 1.2px, transparent 1.2px),
-        radial-gradient(rgba(74, 4, 11, 0.05) 1.2px, transparent 1.2px);
-      background-size: 28px 28px, 56px 56px;
-      background-position: 0 0, 14px 14px;
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    /* Shimmer Text Effect */
-    .shimmer-text {
-      background: var(--gold-shimmer);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: goldShimmer 4s linear infinite;
-    }
-
-    @keyframes goldShimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Canvas Animation Layer */
-    #petal-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    /* Fixed Floating Controls */
-    .floating-controls {
-      position: fixed;
-      bottom: 28px;
-      left: 28px;
-      z-index: 99;
-      display: flex;
-      gap: 14px;
-    }
-
-    .ctrl-btn {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--royal-maroon);
-      border: 1.5px solid var(--gold-primary);
-      color: var(--gold-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), var(--glow-gold);
-      transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .ctrl-btn:hover {
-      transform: scale(1.18) rotate(8deg);
-      background: var(--bright-maroon);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
-    }
-
-    /* Hero Header Section */
-    .hero {
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 20px;
-      overflow: hidden;
-      background: 
-        radial-gradient(circle at 50% 25%, rgba(212, 175, 55, 0.18) 0%, transparent 65%),
-        linear-gradient(180deg, #fdfbf7 0%, #f7ecd7 50%, #fdfbf7 100%);
-    }
-
-    .hero-bg-overlay {
-      position: absolute;
-      inset: 0;
-      opacity: 0.04;
-      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L100 50 L50 100 L0 50 Z' fill='none' stroke='%3C%2Fsvg%3E");
-    }
-
-    /* Royal Palace Arch Card */
-    .hero-card {
-      position: relative;
-      z-index: 2;
-      width: min(820px, 94vw);
-      text-align: center;
-      padding: 60px 45px 55px;
-      background: rgba(253, 251, 247, 0.95);
-      border: 2px solid var(--gold-primary);
-      border-radius: 12px;
-      box-shadow: 
-        0 0 0 8px rgba(253, 251, 247, 0.9),
-        0 0 0 10px rgba(212, 175, 55, 0.5),
-        0 0 0 18px rgba(253, 251, 247, 0.6),
-        0 0 0 20px rgba(122, 12, 23, 0.25),
-        var(--shadow-royal);
-      animation: fadeInScale 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes fadeInScale {
-      from { opacity: 0; transform: scale(0.93) translateY(30px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    /* Ornate Corner Paisley Flourishes */
-    .corner-decor {
-      position: absolute;
-      width: 65px;
-      height: 65px;
-      pointer-events: none;
-    }
-
-    .corner-decor svg {
-      width: 100%;
-      height: 100%;
-      fill: none;
-      stroke: var(--gold-primary);
-      stroke-width: 1.5;
-    }
-
-    .corner-tl { top: 12px; left: 12px; }
-    .corner-tr { top: 12px; right: 12px; transform: scaleX(-1); }
-    .corner-bl { bottom: 12px; left: 12px; transform: scaleY(-1); }
-    .corner-br { bottom: 12px; right: 12px; transform: scale(-1); }
-
-    /* Diya & Ganesh Header Elements */
-    .hero-top-motif {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 10px;
-    }
-
-    .diya-svg {
-      width: 42px;
-      height: 42px;
-      filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
-    }
-
-    .flame {
-      animation: flameFlicker 1.5s infinite alternate ease-in-out;
-      transform-origin: center bottom;
-    }
-
-    @keyframes flameFlicker {
-      0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
-      50% { transform: scale(1.15) rotate(3deg); opacity: 1; filter: drop-shadow(0 0 12px #ffae00); }
-      100% { transform: scale(0.95) rotate(-1deg); opacity: 0.85; }
-    }
-
-    .ganesh-symbol {
-      width: 75px;
-      height: 75px;
-      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
-    }
-
-    .shloka {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 15px;
-      letter-spacing: 4px;
-      color: var(--gold-dark);
-      margin-bottom: 6px;
-      font-weight: 900;
-      text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-    }
-
-    .eyebrow {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 6px;
-      color: var(--bright-maroon);
-      text-transform: uppercase;
-      margin-top: 12px;
-    }
-
-    .hero h1 {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(65px, 10.5vw, 120px);
-      font-weight: 400;
-      color: var(--royal-maroon);
-      margin: 10px 0 0;
-      line-height: 1;
-      text-shadow: 0 4px 15px rgba(74, 4, 11, 0.15);
-    }
-
-    .hero h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(21px, 3vw, 32px);
-      font-weight: 600;
-      color: var(--ink-dark);
-      margin-bottom: 12px;
-    }
-
-    .hero h2 i {
-      font-family: 'Great Vibes', cursive;
-      font-size: 1.35em;
-      color: var(--gold-dark);
-      font-weight: normal;
-      margin: 0 8px;
-    }
-
-    .royal-divider {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      margin: 24px auto;
-      width: 75%;
-    }
-
-    .royal-divider:before, .royal-divider:after {
-      content: '';
-      flex: 1;
-      height: 1.5px;
-      background: var(--gold-shimmer);
-    }
-
-    .royal-divider span {
-      color: var(--gold-primary);
-      font-size: 22px;
-      filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
-    }
-
-    .date-badge {
-      font-family: 'Cinzel', serif;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--royal-maroon);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    /* Live Countdown Section */
-    .countdown-container {
-      margin: 32px auto 24px;
-      max-width: 560px;
-    }
-
-    .countdown-title {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
-      letter-spacing: 4px;
-      color: var(--gold-dark);
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-
-    .countdown-timer {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-    }
-
-    .time-box {
-      background: linear-gradient(160deg, #ffffff 0%, #fdf5e6 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.5);
-      border-radius: 8px;
-      padding: 14px 8px;
-      box-shadow: 0 6px 18px rgba(74, 4, 11, 0.08), inset 0 0 10px rgba(212, 175, 55, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .time-box:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gold-shimmer);
-    }
-
-    .time-val {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(24px, 4.5vw, 36px);
-      font-weight: 700;
-      color: var(--royal-maroon);
-      line-height: 1;
-    }
-
-    .time-lbl {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 9.5px;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-top: 6px;
-      font-weight: 600;
-    }
-
-    /* Luxury Buttons */
-    .btn-group {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 32px;
-    }
-
-    .gold-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 36px;
-      background: linear-gradient(135deg, var(--royal-maroon) 0%, var(--velvet-maroon) 100%);
-      color: var(--gold-light);
-      border: 1.5px solid var(--gold-primary);
-      border-radius: 4px;
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11.5px;
-      font-weight: 700;
-      letter-spacing: 2.5px;
-      text-decoration: none;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(74, 4, 11, 0.3), var(--glow-gold);
-      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .gold-btn:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-      transition: left 0.7s ease;
-    }
-
-    .gold-btn:hover:before {
-      left: 100%;
-    }
-
-    .gold-btn:hover {
-      background: linear-gradient(135deg, var(--bright-maroon) 0%, var(--royal-maroon) 100%);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
-      border-color: var(--gold-light);
-      color: #fff;
-    }
-
-    .gold-btn.secondary {
-      background: transparent;
-      color: var(--royal-maroon);
-      border-color: var(--royal-maroon);
-      box-shadow: none;
-    }
-
-    .gold-btn.secondary:hover {
-      background: var(--royal-maroon);
-      color: var(--gold-light);
-      box-shadow: 0 8px 25px rgba(74, 4, 11, 0.25);
-    }
-
-    /* General Section Layout */
-    .section {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 100px 24px;
-      text-align: center;
-      position: relative;
-    }
-
-    .section-ornament {
-      font-size: 24px;
-      color: var(--gold-primary);
-      letter-spacing: 12px;
-      margin-bottom: 10px;
-      filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.4));
-    }
-
-    .section-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(52px, 7vw, 82px);
-      color: var(--royal-maroon);
-      margin-bottom: 18px;
-      line-height: 1.1;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-
-    .lead-text {
-      font-size: 23px;
-      line-height: 1.65;
-      max-width: 820px;
-      margin: 0 auto 45px;
-      color: var(--ink-dark);
-    }
-
-    /* Story Card Section */
-    .story-card {
-      background: linear-gradient(160deg, rgba(253, 251, 247, 0.95) 0%, rgba(247, 236, 215, 0.85) 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.45);
-      border-radius: 12px;
-      padding: 55px 40px;
-      box-shadow: 0 15px 45px rgba(74, 4, 11, 0.08), var(--glow-gold);
-      position: relative;
-    }
-
-    .family-highlight {
-      font-size: 22px;
-      font-style: italic;
-      color: var(--bright-maroon);
-      margin-top: 28px;
-      font-weight: 600;
-    }
-
-    /* Events Grid */
-    .events-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
-      align-items: stretch;
-      margin-top: 35px;
-    }
-
-    .event-card {
-      background: linear-gradient(180deg, #ffffff 0%, #faf1e1 100%);
-      border: 1.5px solid rgba(212, 175, 55, 0.5);
-      border-radius: 8px;
-      padding: 36px 24px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 12px 35px rgba(74, 4, 11, 0.08);
-      transition: all 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    .event-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 22px 50px rgba(212, 175, 55, 0.3);
-      border-color: var(--gold-primary);
-    }
-
-    .event-card:before {
-      content: '✦';
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: var(--gold-primary);
-      font-size: 13px;
-    }
-
-    .event-date-tag {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: var(--gold-dark);
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
-    .event-card h4 {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 26px;
-      color: var(--royal-maroon);
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-
-    .event-card p {
-      font-size: 19px;
-      line-height: 1.5;
-      color: var(--ink-dark);
-      margin-bottom: 18px;
-    }
-
-    .attire-tag {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.2px;
-      color: var(--bright-maroon);
-      background: rgba(122, 12, 23, 0.08);
-      border: 1px solid rgba(122, 12, 23, 0.15);
-      padding: 5px 12px;
-      border-radius: 20px;
-      display: inline-block;
-      margin-top: 10px;
-    }
-
-    /* Venue Section */
-    .venue-outer {
-      background: linear-gradient(180deg, var(--velvet-maroon) 0%, var(--deep-maroon) 100%);
-      color: var(--ivory-silk);
-      border-top: 2px solid var(--gold-primary);
-      border-bottom: 2px solid var(--gold-primary);
-      position: relative;
-    }
-
-    .venue-outer .section-title,
-    .venue-outer .section-ornament {
-      color: var(--gold-light);
-    }
-
-    .venue-card {
-      background: rgba(253, 251, 247, 0.07);
-      border: 1.5px solid rgba(212, 175, 55, 0.45);
-      border-radius: 12px;
-      padding: 48px;
-      max-width: 820px;
-      margin: 0 auto;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-
-    .venue-address {
-      font-size: 26px;
-      line-height: 1.5;
-      margin-bottom: 28px;
-      color: #f7ead3;
-    }
-
-    .venue-sub {
-      font-size: 19px;
-      color: var(--gold-light);
-      display: block;
-      margin-top: 6px;
-    }
-
-    /* Invitation Card Display */
-    .card-invite-wrap {
-      max-width: 640px;
-      margin: 40px auto 0;
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid var(--gold-primary);
-      box-shadow: var(--shadow-royal);
-    }
-
-    .card-invite-wrap img {
-      width: 100%;
-      display: block;
-    }
-
-    .invite-placeholder {
-      padding: 70px 30px;
-      background: linear-gradient(145deg, #fdfbf7, #f6ebd8);
-      border: 1px solid var(--gold-primary);
-      text-align: center;
-    }
-
-    /* AMUSING PHOTO ANIMATION SECTION AT THE END */
-    .memories-section {
-      background: linear-gradient(180deg, #fdfbf7 0%, #f4e8d3 100%);
-      padding: 110px 24px 120px;
-      border-top: 1.5px solid rgba(212, 175, 55, 0.35);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .memories-subtitle {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      letter-spacing: 4px;
-      color: var(--gold-dark);
-      text-transform: uppercase;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    /* 3D Polaroid Interactive Stack */
-    .polaroid-stage {
-      position: relative;
-      width: 100%;
-      max-width: 460px;
-      height: 500px;
-      margin: 45px auto 35px;
-      perspective: 1200px;
-    }
-
-    .polaroid-card {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #ffffff;
-      padding: 20px 20px 32px;
-      border-radius: 6px;
-      box-shadow: 0 18px 45px rgba(46, 2, 7, 0.25);
-      border: 1px solid #e8e0d0;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.65s ease, box-shadow 0.35s ease;
-      transform-origin: center bottom;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .polaroid-card:hover {
-      box-shadow: 0 25px 55px rgba(212, 175, 55, 0.4);
-    }
-
-    /* Gold Tape Header effect */
-    .polaroid-tape {
-      position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 120px;
-      height: 30px;
-      background: rgba(212, 175, 55, 0.65);
-      border: 1px dashed rgba(255, 255, 255, 0.7);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      z-index: 5;
-    }
-
-    .polaroid-img-box {
-      width: 100%;
-      height: 375px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 4px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .polaroid-caption {
-      margin-top: 18px;
-      font-family: 'Great Vibes', cursive;
-      font-size: 32px;
-      color: var(--royal-maroon);
-      text-align: center;
-    }
-
-    .polaroid-hint {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      letter-spacing: 2.5px;
-      color: var(--bright-maroon);
-      margin-top: 18px;
-      font-weight: 700;
-      animation: pulseText 2s infinite ease-in-out;
-    }
-
-    @keyframes pulseText {
-      0%, 100% { opacity: 0.65; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.05); }
-    }
-
-    .memory-actions {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    #photo-upload-input {
-      display: none;
-    }
-
-    /* Heart Burst Particle Layer */
-    .heart-burst-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 100;
-    }
-
-    .floating-heart {
-      position: absolute;
-      font-size: 26px;
-      pointer-events: none;
-      animation: floatUpAndFade 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-    }
-
-    @keyframes floatUpAndFade {
-      0% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
-      }
-      50% {
-        opacity: 0.95;
-        transform: translate(calc(-50% + var(--dx)), calc(-50% - 80px)) scale(1.5) rotate(var(--rot));
-      }
-      100% {
-        opacity: 0;
-        transform: translate(calc(-50% + var(--dx)), calc(-50% - 170px)) scale(1) rotate(var(--rot));
-      }
-    }
-
-    /* Footer */
-    .footer {
-      padding: 80px 20px 45px;
-      text-align: center;
-      background: var(--deep-maroon);
-      color: #ead5ae;
-      border-top: 2px solid var(--gold-primary);
-    }
-
-    .footer-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: 64px;
-      color: var(--gold-light);
-      text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-    }
-
-    .footer-blessings {
-      font-size: 21px;
-      max-width: 640px;
-      margin: 18px auto 28px;
-      color: #dfc39a;
-      font-style: italic;
-    }
-
-    /* Mobile Responsive Adjustments */
-    @media (max-width: 980px) {
-      .events-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero-card {
-        padding: 40px 20px;
-      }
-      .events-grid {
-        grid-template-columns: 1fr;
-      }
-      .polaroid-stage {
-        height: 440px;
-      }
-      .polaroid-img-box {
-        height: 320px;
-      }
-      .time-val {
-        font-size: 22px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="intro-active">
 
-  <!-- Floating Particles Canvas -->
-  <canvas id="petal-canvas"></canvas>
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
 
-  <!-- Heart Burst Layer for Photo Animation -->
-  <div id="heart-burst-layer" class="heart-burst-layer"></div>
+    <!-- 1. Hero Video Intro Section (Tap to play, text smoothly appears on freeze frame) -->
+    <section id="hero-video-section" class="hero-video-container">
+      <video id="hero-video" class="hero-video" playsinline preload="auto">
+        <source src="assets/royal-grace.mp4" type="video/mp4" />
+      </video>
 
-  <!-- Fixed Floating Control Toggle -->
-  <div class="floating-controls">
-    <button class="ctrl-btn" id="toggle-petals" title="Toggle Flower Petals">🌸</button>
-    <button class="ctrl-btn" id="toggle-audio" title="Toggle Wedding Music">🎵</button>
-  </div>
+      <!-- Smooth Overlay Text (Fades in when video ends on last frame) -->
+      <div id="hero-text-overlay" class="hero-text-overlay hidden-overlay">
+        <div class="shloka">|| श्री गणेशाय नमः ||</div>
+        <div class="eyebrow">WITH IMMENSE JOY &amp; HAPPINESS</div>
+        
+        <h1 class="couple-names">Sparsh &amp; Manmeet</h1>
+        <h2 class="couple-details">Sparsh Basak (Cheeku) <i>with</i> Manmeet Kaur (Mishti)</h2>
 
-  <!-- Hero Header Section -->
-  <header class="hero" id="couple">
-    <div class="hero-bg-overlay"></div>
-    <div class="hero-card">
-      
-      <!-- Paisley Corner Flourishes -->
-      <div class="corner-decor corner-tl">
-        <svg viewBox="0 0 50 50"><path d="M5 5 C 20 5, 45 10, 45 45 M5 5 L 45 5 M5 5 L 5 45"/></svg>
-      </div>
-      <div class="corner-decor corner-tr">
-        <svg viewBox="0 0 50 50"><path d="M5 5 C 20 5, 45 10, 45 45 M5 5 L 45 5 M5 5 L 5 45"/></svg>
-      </div>
-      <div class="corner-decor corner-bl">
-        <svg viewBox="0 0 50 50"><path d="M5 5 C 20 5, 45 10, 45 45 M5 5 L 45 5 M5 5 L 5 45"/></svg>
-      </div>
-      <div class="corner-decor corner-br">
-        <svg viewBox="0 0 50 50"><path d="M5 5 C 20 5, 45 10, 45 45 M5 5 L 45 5 M5 5 L 5 45"/></svg>
-      </div>
+        <div class="royal-divider"><span>❦</span></div>
 
-      <!-- Diya & Lord Ganesha Header Symbol -->
-      <div class="hero-top-motif">
-        <!-- Diya Left -->
-        <svg class="diya-svg" viewBox="0 0 50 50">
-          <path class="flame" d="M25 5 Q 30 18 25 25 Q 20 18 25 5 Z" fill="#ffb700"/>
-          <path d="M10 25 Q 25 40 40 25 Q 32 42 18 42 Z" fill="#d4af37"/>
-        </svg>
+        <div class="date-badge">21st November 2026 · Kanpur, UP</div>
 
-        <!-- Ganesha Motif -->
-        <svg class="ganesh-symbol" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 5C25 5 15 25 15 40C15 60 35 65 35 80C35 90 45 95 50 95C55 95 65 90 65 80C65 65 85 60 85 40C85 25 75 5 50 5Z" stroke="#d4af37" stroke-width="3.5" fill="none"/>
-          <circle cx="50" cy="30" r="9" fill="#7a0c17"/>
-          <path d="M50 39Q60 54 50 70" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
-          <circle cx="50" cy="17" r="3.5" fill="#ffe5a3"/>
-        </svg>
-
-        <!-- Diya Right -->
-        <svg class="diya-svg" viewBox="0 0 50 50">
-          <path class="flame" d="M25 5 Q 30 18 25 25 Q 20 18 25 5 Z" fill="#ffb700"/>
-          <path d="M10 25 Q 25 40 40 25 Q 32 42 18 42 Z" fill="#d4af37"/>
-        </svg>
-      </div>
-
-      <div class="shloka">|| श्री गणेशाय नमः ||</div>
-      <div class="eyebrow">WITH IMMENSE JOY &amp; HAPPINESS</div>
-      
-      <h1 class="shimmer-text">Sparsh &amp; Manmeet</h1>
-      <h2>Sparsh Basak (Cheeku) <i>with</i> Manmeet Kaur (Mishti)</h2>
-
-      <div class="royal-divider">
-        <span>❦</span>
-      </div>
-
-      <div class="date-badge">21st November 2026 · Kanpur, UP</div>
-
-      <!-- Live Countdown Timer -->
-      <div class="countdown-container">
-        <div class="countdown-title">Counting Down To The Royal Union</div>
-        <div class="countdown-timer">
-          <div class="time-box">
-            <div class="time-val" id="cd-days">00</div>
-            <div class="time-lbl">Days</div>
-          </div>
-          <div class="time-box">
-            <div class="time-val" id="cd-hours">00</div>
-            <div class="time-lbl">Hours</div>
-          </div>
-          <div class="time-box">
-            <div class="time-val" id="cd-mins">00</div>
-            <div class="time-lbl">Mins</div>
-          </div>
-          <div class="time-box">
-            <div class="time-val" id="cd-secs">00</div>
-            <div class="time-lbl">Secs</div>
+        <!-- Live Countdown Timer -->
+        <div class="countdown-container">
+          <div class="countdown-title">Counting Down To The Royal Union</div>
+          <div class="countdown-timer">
+            <div class="time-box">
+              <div class="time-val" id="cd-days">00</div>
+              <div class="time-lbl">Days</div>
+            </div>
+            <div class="time-box">
+              <div class="time-val" id="cd-hours">00</div>
+              <div class="time-lbl">Hours</div>
+            </div>
+            <div class="time-box">
+              <div class="time-val" id="cd-mins">00</div>
+              <div class="time-lbl">Mins</div>
+            </div>
+            <div class="time-box">
+              <div class="time-val" id="cd-secs">00</div>
+              <div class="time-lbl">Secs</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="btn-group">
-        <a class="gold-btn" href="#events">
-          <span>📅</span> EXPLORE CELEBRATION
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Story & Family Invitation Section -->
-  <section class="section" id="story">
-    <div class="section-ornament">— ❦ —</div>
-    <h3 class="section-title">Two Families, One Union</h3>
-    
-    <div class="story-card">
-      <p class="lead-text">
-        <strong>Mr. Ratan Basak &amp; Mrs. Shampa Basak</strong> cordially invite you to celebrate the wedding of their beloved son <strong>Sparsh Basak</strong> with <strong>Manmeet Kaur</strong>, beloved daughter of <strong>Mr. Manjeet Singh &amp; Mrs. Pritpal Kaur</strong>.
-      </p>
-      <p class="family-highlight">
-        "Your gracious presence and blessings will make this joyous celebration truly memorable."
-      </p>
-    </div>
-  </section>
-
-  <!-- Events Timeline Section -->
-  <section class="section" id="events">
-    <div class="section-ornament">— ✦ —</div>
-    <h3 class="section-title">Wedding Celebrations</h3>
-    <p class="lead-text">Four beautiful celebrations leading to one unforgettable union.</p>
-
-    <div class="events-grid">
-      <!-- Event 1: Haldi -->
-      <article class="event-card">
-        <div>
-          <div class="event-date-tag">20 NOVEMBER · 10:00 AM</div>
-          <h4>Haldi</h4>
-          <p>Little Chef<br>Civil Lines, Kanpur</p>
-        </div>
-        <div class="attire-tag">💛 Sunshine Yellow Attire</div>
-      </article>
-
-      <!-- Event 2: Sangeet -->
-      <article class="event-card">
-        <div>
-          <div class="event-date-tag">20 NOVEMBER · 7:00 PM</div>
-          <h4>Sangeet</h4>
-          <p>An evening of music, dance and joyous celebration.</p>
-        </div>
-        <div class="attire-tag">✨ Indo-Western Glitz</div>
-      </article>
-
-      <!-- Event 3: Anand Karaj -->
-      <article class="event-card">
-        <div>
-          <div class="event-date-tag">21 NOVEMBER · 9:00 AM</div>
-          <h4>Anand Karaj</h4>
-          <p>A sacred morning ceremony with family and divine blessings.</p>
-        </div>
-        <div class="attire-tag">🌸 Traditional Ethnic Grace</div>
-      </article>
-
-      <!-- Event 4: Wedding -->
-      <article class="event-card">
-        <div>
-          <div class="event-date-tag">21 NOVEMBER · 7:00 PM</div>
-          <h4>Wedding</h4>
-          <p>Defence Club Ground<br>Cantonment, Kanpur</p>
-        </div>
-        <div class="attire-tag">👑 Royal Ethnic Splendor</div>
-      </article>
-    </div>
-  </section>
-
-  <!-- Venue & Maps Section -->
-  <div class="venue-outer" id="venue">
-    <section class="section">
-      <div class="section-ornament">— ❦ —</div>
-      <h3 class="section-title">The Wedding Venue</h3>
-      
-      <div class="venue-card">
-        <div class="venue-address">
-          <strong>Defence Club Ground</strong><br>
-          Cantonment, Kanpur<br>
-          <span class="venue-sub">(Behind Pandit Restaurant)</span>
-        </div>
-
-        <div class="btn-group">
-          <a class="gold-btn" href="https://www.google.com/maps/search/?api=1&query=Defence+Club+Ground+Cantonment+Kanpur" target="_blank" rel="noopener">
-            📍 OPEN IN GOOGLE MAPS
-          </a>
+        <div id="scroll-hint" class="scroll-hint">
+          <span class="chevron"></span>
         </div>
       </div>
     </section>
+
+    <!-- 2. Welcome Background Section (royal-grace-welcome-bg.jpg) -->
+    <section class="section-bg welcome-bg-section" id="welcome">
+      <div class="clean-text-wrapper">
+
+        <!-- Family Invitation Text -->
+        <div class="family-text-block">
+          <div class="section-ornament">— ❦ —</div>
+          <h3 class="section-heading">Two Families, One Union</h3>
+          <p class="lead-text">
+            <strong>Mr. Ratan Basak &amp; Mrs. Shampa Basak</strong> cordially invite you to celebrate the wedding of their beloved son <strong>Sparsh Basak</strong> with <strong>Manmeet Kaur</strong>, beloved daughter of <strong>Mr. Manjeet Singh &amp; Mrs. Pritpal Kaur</strong>.
+          </p>
+          <p class="family-highlight">
+            "Your gracious presence and blessings will make this joyous celebration truly memorable."
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. General Events Section (royal-grace-general-bg.jpg) -->
+    <section class="section-bg general-bg-section" id="events">
+      <div class="clean-text-wrapper">
+
+        <div class="section-header">
+          <div class="section-ornament">— ✦ —</div>
+          <h2 class="section-heading">Wedding Celebrations</h2>
+          <p class="lead-sub">Four beautiful celebrations leading to one unforgettable union.</p>
+        </div>
+
+        <!-- Events Pure Text Grid -->
+        <div class="events-text-grid">
+          <div class="event-text-item">
+            <div class="event-date-tag">20 NOVEMBER · 10:00 AM</div>
+            <h4>Haldi</h4>
+            <p>Little Chef<br>Civil Lines, Kanpur</p>
+            <div class="attire-tag">💛 Sunshine Yellow Attire</div>
+          </div>
+
+          <div class="event-text-item">
+            <div class="event-date-tag">20 NOVEMBER · 7:00 PM</div>
+            <h4>Sangeet</h4>
+            <p>An evening of music, dance and joyous celebration.</p>
+            <div class="attire-tag">✨ Indo-Western Glitz</div>
+          </div>
+
+          <div class="event-text-item">
+            <div class="event-date-tag">21 NOVEMBER · 9:00 AM</div>
+            <h4>Anand Karaj</h4>
+            <p>A sacred morning ceremony with family and divine blessings.</p>
+            <div class="attire-tag">🌸 Traditional Ethnic Grace</div>
+          </div>
+
+          <div class="event-text-item">
+            <div class="event-date-tag">21 NOVEMBER · 7:00 PM</div>
+            <h4>Wedding</h4>
+            <p>Defence Club Ground<br>Cantonment, Kanpur</p>
+            <div class="attire-tag">👑 Royal Ethnic Splendor</div>
+          </div>
+        </div>
+
+        <!-- Venue Text -->
+        <div class="venue-text-block" id="venue">
+          <div class="section-ornament">— ❦ —</div>
+          <h3 class="section-heading">The Wedding Venue</h3>
+          <div class="venue-address">
+            <strong>Defence Club Ground</strong><br>
+            Cantonment, Kanpur<br>
+            <span class="venue-sub">(Behind Pandit Restaurant)</span>
+          </div>
+
+          <div class="btn-group">
+            <a class="gold-btn" href="https://www.google.com/maps/search/?api=1&query=Defence+Club+Ground+Cantonment+Kanpur" target="_blank" rel="noopener">
+              📍 OPEN IN GOOGLE MAPS
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. End Section (royal-grace-end-bg.jpg) -->
+    <section class="section-bg end-bg-section" id="end-section">
+      <div class="clean-text-wrapper">
+
+        <div class="invite-text-block">
+          <div class="section-ornament">— ✦ —</div>
+          <h3 class="section-heading">Wedding Invitation</h3>
+          <p class="lead-text">
+            With a warm and heartfelt welcome from<br>
+            <strong>Beloved Nani, Ganga Basak</strong> &amp; <strong>Loving Sister, Samriddhi Basak</strong>
+          </p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="clean-footer">
+          <div class="footer-names">Sparsh &amp; Manmeet</div>
+          <div class="royal-divider"><span>❦</span></div>
+          <p class="footer-blessings">
+            "Together with our families, we look forward to sharing this magical day with you."
+          </p>
+          <p class="footer-date">
+            21 · 11 · 2026 · KANPUR
+          </p>
+        </footer>
+
+      </div>
+    </section>
+
   </div>
 
-  <!-- Traditional Invite Card Display -->
-  <section class="section" id="invite-card-sec">
-    <div class="section-ornament">— ✦ —</div>
-    <h3 class="section-title">Wedding Invitation Card</h3>
-    <p class="lead-text">
-      With a warm and heartfelt welcome from<br>
-      <strong>Beloved Nani, Ganga Basak</strong> &amp; <strong>Loving Sister, Samriddhi Basak</strong>
-    </p>
-    
-    <div class="card-invite-wrap">
-      <img src="invite.png" alt="Sparsh and Manmeet wedding invitation" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'invite-placeholder\'><h4>Sparsh & Manmeet</h4><p style=\'margin-top:10px; color:var(--royal-maroon); font-weight:600;\'>Royal Wedding Celebration Card</p></div>';">
-    </div>
-  </section>
-
-  <!-- AMUSING PHOTO ANIMATION SECTION AT THE END -->
-  <section class="memories-section" id="memories">
-    <div class="section-ornament">— 💖 —</div>
-    <div class="memories-subtitle">INTERACTIVE MEMORY GALLERY</div>
-    <h3 class="section-title">Our Moments &amp; Memories</h3>
-    <p class="lead-text">Click or tap on the polaroid cards below to shuffle through our memories with romantic animations!</p>
-
-    <!-- 3D Interactive Polaroid Stack -->
-    <div class="polaroid-stage" id="polaroid-stack">
-      
-      <!-- Polaroid Card 1 -->
-      <div class="polaroid-card">
-        <div class="polaroid-tape"></div>
-        <div class="polaroid-img-box" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80');"></div>
-        <div class="polaroid-caption">Where Forever Begins ✨</div>
-      </div>
-
-      <!-- Polaroid Card 2 -->
-      <div class="polaroid-card">
-        <div class="polaroid-tape"></div>
-        <div class="polaroid-img-box" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80');"></div>
-        <div class="polaroid-caption">Joy, Music &amp; Sangeet Laughter 🎶</div>
-      </div>
-
-      <!-- Polaroid Card 3 -->
-      <div class="polaroid-card">
-        <div class="polaroid-tape"></div>
-        <div class="polaroid-img-box" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80');"></div>
-        <div class="polaroid-caption">Sacred Promises &amp; Blessings 💍</div>
-      </div>
-
-      <!-- Polaroid Card 4 -->
-      <div class="polaroid-card">
-        <div class="polaroid-tape"></div>
-        <div class="polaroid-img-box" style="background-image: url('https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80');"></div>
-        <div class="polaroid-caption">Two Hearts, One Soul ❤️</div>
-      </div>
-
-    </div>
-
-    <div class="polaroid-hint">👈 Tap top photo to flip &amp; send love! 👉</div>
-
-    <div class="memory-actions">
-      <button class="gold-btn" id="btn-shuffle">
-        🔀 SHUFFLE PHOTOS
-      </button>
-      <button class="gold-btn secondary" id="btn-upload-trigger">
-        📸 ADD YOUR PHOTO
-      </button>
-      <input type="file" id="photo-upload-input" accept="image/*">
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-names">Sparsh &amp; Manmeet</div>
-    <div class="royal-divider"><span>❦</span></div>
-    <p class="footer-blessings">
-      "Together with our families, we look forward to sharing this magical day with you."
-    </p>
-    <p style="font-family:'Montserrat', sans-serif; font-size:12px; letter-spacing:3px; color:var(--gold-primary); font-weight:700;">
-      21 · 11 · 2026 · KANPUR
-    </p>
-  </footer>
-
-  <!-- JavaScript Code -->
-  <script>
-    /* ===================================================
-       1. LIVE COUNTDOWN TIMER
-       =================================================== */
-    const weddingDate = new Date('November 21, 2026 00:00:00').getTime();
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
-
-      if (diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const secs = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
-        document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
-        document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
-        document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
-      }
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    /* ===================================================
-       2. CANVAS FLOWER PETALS & GOLD DUST PARTICLES
-       =================================================== */
-    const canvas = document.getElementById('petal-canvas');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    let petalsActive = true;
-    const particles = [];
-    const particleCount = 40;
-
-    class PetalParticle {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = -20;
-        this.size = Math.random() * 9 + 4;
-        this.speedY = Math.random() * 1.6 + 0.8;
-        this.speedX = Math.random() * 1.2 - 0.6;
-        this.rotation = Math.random() * 360;
-        this.rotSpeed = Math.random() * 2 - 1;
-        this.isGold = Math.random() > 0.45;
-        this.opacity = Math.random() * 0.75 + 0.25;
-      }
-      update() {
-        this.y += this.speedY;
-        this.x += Math.sin(this.y * 0.012) + this.speedX;
-        this.rotation += this.rotSpeed;
-        if (this.y > canvas.height + 20) {
-          this.reset();
-        }
-      }
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate((this.rotation * Math.PI) / 180);
-        ctx.globalAlpha = this.opacity;
-
-        if (this.isGold) {
-          ctx.fillStyle = '#d4af37';
-          ctx.beginPath();
-          ctx.arc(0, 0, this.size * 0.45, 0, Math.PI * 2);
-          ctx.fill();
-        } else {
-          ctx.fillStyle = '#800c19';
-          ctx.beginPath();
-          ctx.ellipse(0, 0, this.size, this.size * 0.6, 0, 0, Math.PI * 2);
-          ctx.fill();
-        }
-        ctx.restore();
-      }
-    }
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new PetalParticle());
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (petalsActive) {
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
-      }
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-
-    document.getElementById('toggle-petals').addEventListener('click', function() {
-      petalsActive = !petalsActive;
-      this.style.opacity = petalsActive ? '1' : '0.4';
-    });
-
-    /* ===================================================
-       3. AMBIENT AUDIO SYNTHESIZER TOGGLE
-       =================================================== */
-    let audioCtx = null;
-    let isPlayingAudio = false;
-
-    document.getElementById('toggle-audio').addEventListener('click', function() {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      isPlayingAudio = !isPlayingAudio;
-      this.style.transform = isPlayingAudio ? 'scale(1.2)' : 'scale(1)';
-      
-      if (isPlayingAudio) {
-        this.textContent = '🔊';
-        playFluteMelody();
-      } else {
-        this.textContent = '🎵';
-        if (audioCtx) audioCtx.suspend();
-      }
-    });
-
-    function playFluteMelody() {
-      if (!audioCtx) return;
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      
-      const notes = [261.63, 293.66, 329.63, 392.00, 440.00, 523.25];
-      let noteIdx = 0;
-
-      function triggerNextNote() {
-        if (!isPlayingAudio) return;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.value = notes[noteIdx % notes.length];
-        noteIdx++;
-
-        gain.gain.setValueAtTime(0.01, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.08, audioCtx.currentTime + 0.3);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.8);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        osc.start();
-        osc.stop(audioCtx.currentTime + 2.0);
-
-        setTimeout(triggerNextNote, 1200);
-      }
-      triggerNextNote();
-    }
-
-    /* ===================================================
-       4. AMUSING 3D POLAROID PHOTO STACK ANIMATION
-       =================================================== */
-    const polaroidStage = document.getElementById('polaroid-stack');
-    let polaroidCards = Array.from(polaroidStage.querySelectorAll('.polaroid-card'));
-
-    function layoutPolaroids() {
-      polaroidCards.forEach((card, index) => {
-        const total = polaroidCards.length;
-        const revIndex = total - 1 - index;
-        
-        const rot = (index % 2 === 0 ? 1 : -1) * (index * 4 - 3);
-        const offsetY = index * -4;
-        const scale = 1 - (total - 1 - index) * 0.03;
-        
-        card.style.zIndex = index + 1;
-        card.style.transform = `translateY(${offsetY}px) rotate(${rot}deg) scale(${scale})`;
-      });
-    }
-    layoutPolaroids();
-
-    function popHeartBurst(x, y) {
-      const burstContainer = document.getElementById('heart-burst-layer');
-      const symbols = ['❤️', '💖', '✨', '🌸', '🌹', '💍'];
-      
-      for (let i = 0; i < 9; i++) {
-        const heart = document.createElement('div');
-        heart.className = 'floating-heart';
-        heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        
-        const dx = (Math.random() - 0.5) * 180 + 'px';
-        const rot = (Math.random() - 0.5) * 70 + 'deg';
-        
-        heart.style.left = x + 'px';
-        heart.style.top = y + 'px';
-        heart.style.setProperty('--dx', dx);
-        heart.style.setProperty('--rot', rot);
-        
-        burstContainer.appendChild(heart);
-        setTimeout(() => heart.remove(), 1500);
-      }
-    }
-
-    function shuffleTopPolaroid(e) {
-      if (polaroidCards.length === 0) return;
-      
-      const topCard = polaroidCards[polaroidCards.length - 1];
-      
-      const rect = topCard.getBoundingClientRect();
-      const clickX = e ? e.clientX : rect.left + rect.width / 2;
-      const clickY = e ? e.clientY : rect.top + rect.height / 2;
-      popHeartBurst(clickX, clickY);
-
-      topCard.style.transform = 'translateY(-130px) rotate(28deg) scale(1.1)';
-      topCard.style.opacity = '0.2';
-
-      setTimeout(() => {
-        polaroidCards.pop();
-        polaroidCards.unshift(topCard);
-        
-        topCard.style.opacity = '1';
-        layoutPolaroids();
-      }, 360);
-    }
-
-    polaroidStage.addEventListener('click', shuffleTopPolaroid);
-    document.getElementById('btn-shuffle').addEventListener('click', shuffleTopPolaroid);
-
-    const uploadInput = document.getElementById('photo-upload-input');
-    document.getElementById('btn-upload-trigger').addEventListener('click', () => uploadInput.click());
-
-    uploadInput.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          const newCard = document.createElement('div');
-          newCard.className = 'polaroid-card';
-          newCard.innerHTML = `
-            <div class="polaroid-tape"></div>
-            <div class="polaroid-img-box" style="background-image: url('${event.target.result}');"></div>
-            <div class="polaroid-caption">A Special Memory ❤️</div>
-          `;
-          polaroidStage.appendChild(newCard);
-          polaroidCards.push(newCard);
-          layoutPolaroids();
-
-          const rect = polaroidStage.getBoundingClientRect();
-          popHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
